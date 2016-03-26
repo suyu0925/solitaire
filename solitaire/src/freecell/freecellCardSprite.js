@@ -1,13 +1,54 @@
 "use strict";
 
-var CardSprite = cc.Sprite.extend({
+var FreecellCardSprite = cc.Sprite.extend({
     card: null,
 
-    ctor: function(card) {
+    ctor: function (card) {
         this._super();
 
         this.card = card;
         this.initRes();
+
+        // 添加触摸事件监听
+        this.touchListener = cc.EventListener.create({event: cc.EventListener.TOUCH_ONE_BY_ONE});
+        this.touchListener.swallowTouches = true;
+        this.touchListener.onTouchBegan = this.onTouchBegan;
+        this.touchListener.onTouchMoved = this.onTouchMoved;
+        this.touchListener.onTouchEnded = this.onTouchEnded;
+        cc.eventManager.addListener(this.touchListener, this);
+    },
+
+    getGame: function () {
+        var layer = this.getParent().getParent();
+        return layer.game;
+    },
+
+    onTouchBegan: function (touch, event) {
+        var target = event.getCurrentTarget();
+        var locationInNode = target.convertToNodeSpace(touch.getLocation());
+        var s = target.getContentSize();
+        var rect = cc.rect(0, 0, s.width, s.height);
+        var draggable = target.getGame().isDraggable(target.card.id);
+
+        if (cc.rectContainsPoint(rect, locationInNode) && draggable) {
+            cc.log(target.card.serialize() + ': onTouchStart');
+            target.setLocalZOrder(Z_ORDER.dragged);
+            return true;
+        }
+        return false;
+    },
+
+    onTouchMoved: function (touch, event) {
+        var target = event.getCurrentTarget();
+        var delta = touch.getDelta();
+        target.x += delta.x;
+        target.y += delta.y;
+        //cc.log(target.card.serialize() + ': onTouchMoved');
+    },
+
+    onTouchEnded: function (touch, event) {
+        var target = event.getCurrentTarget();
+        cc.log(target.card.serialize() + ': onTouchEnded');
     },
 
     initRes: function () {

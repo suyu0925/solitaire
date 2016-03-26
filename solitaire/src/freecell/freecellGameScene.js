@@ -3,6 +3,7 @@
 var FreeCellGameLayer = cc.Layer.extend({
     game: null,
     cardSprites: null,
+    cardBatchNode: null,
 
     ctor: function () {
         this._super();
@@ -11,7 +12,7 @@ var FreeCellGameLayer = cc.Layer.extend({
         this.game.init();
         var drag_ids = this.game.validDragIds();
         for (var i = 0; i < drag_ids.length; i++) {
-            cc.log(this.game.deck.getCard(drag_ids[i]).serizalize());
+            cc.log(this.game.deck.getCard(drag_ids[i]).serialize());
         }
 
         this.cardSprites = {};
@@ -20,7 +21,12 @@ var FreeCellGameLayer = cc.Layer.extend({
     onEnter: function () {
         this._super();
 
+        // 加载扑克资源
         cc.spriteFrameCache.addSpriteFrames(plist.game_poker_plist);
+
+        // 创建一个batch
+        this.cardBatchNode = cc.SpriteBatchNode.create(res.game_poker_png, 52);
+        this.addChild(this.cardBatchNode, Z_ORDER.poker);
 
         // 添加背景
         var bg = new cc.Sprite(res.background_jpg);
@@ -52,6 +58,7 @@ var FreeCellGameLayer = cc.Layer.extend({
     onExit: function () {
         this._super();
 
+        // 卸载扑克资源
         cc.spriteFrameCache.removeSpriteFrames(plist.game_poker_plist);
     },
 
@@ -63,9 +70,9 @@ var FreeCellGameLayer = cc.Layer.extend({
 
             for (j = 0; j < num_cards; j++) {
                 card = cards[j];
-                var cardSprite = new CardSprite(card);
+                var cardSprite = new FreecellCardSprite(card);
                 cardSprite.setAnchorPoint(0, 0);
-                this.addChild(cardSprite, j);
+                this.cardBatchNode.addChild(cardSprite, j);
                 cardSprite.setPosition(i * (78 + 9), 900 - j * (112 * 0.4));
                 this.cardSprites[card.id] = cardSprite;
             }

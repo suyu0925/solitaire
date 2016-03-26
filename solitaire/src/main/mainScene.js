@@ -14,7 +14,7 @@ var MainLayer = cc.Layer.extend({
         // 添加空当接龙的按钮
         var sprite = new cc.Sprite(res.main.freecell_button);
         this.freecell = new cc.MenuItemSprite(sprite, null, null, this.menuClick, this);
-        this.freecell.setPosition(400, 400);
+        this.freecell.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         this.menus.addChild(this.freecell);
 
         this.addChild(this.menus);

@@ -1,23 +1,5 @@
 "use strict";
 
-var CARD_SUITS = [
-    'clubs', 'spades', 'hearts', 'diamonds'
-];
-
-var CARD_COLOURS = {
-    'clubs': 'black',
-    'spades': 'black',
-    'hearts': 'red',
-    'diamonds': 'red'
-};
-
-var CARD_COLOURS_INDEX = {
-    'clubs': 'caohua',
-    'spades': 'heitao',
-    'hearts': 'hongtao',
-    'diamonds': 'fangpian'
-};
-
 /**
  * @class Card
  * @param {int} id - 标识
@@ -44,7 +26,7 @@ Card.prototype.sameValue = function (other) {
     return this.value === other.value;
 };
 
-Card.prototype.serizalize = function () {
+Card.prototype.serialize = function () {
     return this.suit + '_' + this.value;
 };
 

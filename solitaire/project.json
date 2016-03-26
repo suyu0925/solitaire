@@ -11,12 +11,13 @@
   ],
   "jsList": [
     "src/resource.js",
+    "src/common/constant.js",
     "src/common/card.js",
-    "src/common/cardSprite.js",
     "src/common/deck.js",
     "src/common/utility.js",
     "src/main/mainScene.js",
     "src/freecell/freecellGameScene.js",
-    "src/freecell/freecellGame.js"
+    "src/freecell/freecellGame.js",
+    "src/freecell/freecellCardSprite.js"
   ]
 }
