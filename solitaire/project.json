@@ -1,17 +1,22 @@
 {
-    "project_type": "javascript",
-
-    "debugMode" : 1,
-    "showFPS" : true,
-    "frameRate" : 60,
-    "id" : "gameCanvas",
-    "renderMode" : 0,
-    "engineDir":"frameworks/cocos2d-html5",
-
-    "modules" : ["cocos2d"],
-
-    "jsList" : [
-        "src/resource.js",
-        "src/app.js"
-    ]
+  "project_type": "javascript",
+  "debugMode": 1,
+  "showFPS": true,
+  "frameRate": 60,
+  "id": "gameCanvas",
+  "renderMode": 0,
+  "engineDir": "frameworks/cocos2d-html5",
+  "modules": [
+    "cocos2d"
+  ],
+  "jsList": [
+    "src/resource.js",
+    "src/common/card.js",
+    "src/common/cardSprite.js",
+    "src/common/deck.js",
+    "src/common/utility.js",
+    "src/main/mainScene.js",
+    "src/freecell/freecellGameScene.js",
+    "src/freecell/freecellGame.js"
+  ]
 }
